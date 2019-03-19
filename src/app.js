@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
-import { Nav, Navbar, Button } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 
 import InstituteDashboardPage from './institute/dashboard/institute_dashboard_page';
 import InstituteAccountPage from './institute/account/institute_account_page';
@@ -58,11 +58,8 @@ class App extends Component<Props> {
             <Link className="navbar-brand" to="/">Trust Academy</Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
-                <NavLink exact className="nav-link" to="/">Dashboard</NavLink>
-                <NavLink className="nav-link" to="/account">Conta</NavLink>
-              </Nav>
               <Nav className="ml-auto">
+                <NavLink className="nav-link" to="/account">Conta</NavLink>
                 <Link
                   to="/"
                   className="nav-link"

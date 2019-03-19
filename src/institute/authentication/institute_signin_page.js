@@ -2,7 +2,7 @@
 import * as R from 'ramda';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Form, FormGroup, FormLabel, FormControl, Button, Alert } from 'react-bootstrap';
+import { Card, Form, FormGroup, FormLabel, FormControl, Button } from 'react-bootstrap';
 
 import instituteAccountMocks from '../account/institute_account_mocks';
 
@@ -72,6 +72,7 @@ class InstituteSigninPage extends Component<Props> {
               <FormLabel htmlFor="password">Senha</FormLabel>
               <FormControl
                 id="password"
+                type="password"
                 placeholder="fiap|uniban|faap123"
                 onChange={(e) => this.onChange('password', e.target.value)}
               />
