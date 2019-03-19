@@ -8,7 +8,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.authentication {
+  margin: 0 auto;
+  max-width: 480px;
+  padding: 32px 16px;
+}
+
+.admin .navbar {
+  margin: 16px 0;
+  border-radius: 4px;
 }
