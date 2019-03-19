@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
+import DocumentListContainer from '../document/document_list_container';
+
 type Props = {
   account: Account
 };
@@ -10,9 +12,7 @@ type Props = {
  */
 class InstituteDashboardPage extends Component<Props> {
   render() {
-    return (
-      <div>Olá {this.props.account.name}, seja bem vinda ao seu dashboard.</div>
-    );
+    return (<DocumentListContainer />);
   }
 }
 

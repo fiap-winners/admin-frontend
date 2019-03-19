@@ -64,7 +64,7 @@ class InstituteSigninPage extends Component<Props> {
               <FormLabel htmlFor="email">Email</FormLabel>
               <FormControl
                 id="email"
-                placeholder="email@fiap|uniban|faap.com"
+                placeholder="email@fiap.com"
                 onChange={(e) => this.onChange('email', e.target.value)}
               />
             </FormGroup>
@@ -73,7 +73,7 @@ class InstituteSigninPage extends Component<Props> {
               <FormControl
                 id="password"
                 type="password"
-                placeholder="fiap|uniban|faap123"
+                placeholder="fiap123"
                 onChange={(e) => this.onChange('password', e.target.value)}
               />
             </FormGroup>

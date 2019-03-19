@@ -18,3 +18,21 @@ body {
   margin: 16px 0;
   border-radius: 4px;
 }
+
+.dropzone {
+  width: 100%;
+  padding: 16px;
+  text-align: center;
+  border: 1px #ced4da dashed;
+  margin-bottom: 16px;
+}
+
+.dropzone:hover {
+  background: #ced4da;
+  cursor: pointer;
+}
+
+.dropzone:active,
+.dropzone:focus {
+  outline: none;
+}
