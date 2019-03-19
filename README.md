@@ -11,7 +11,7 @@
 
 ### Documentação das principais dependências
 
-React: https://reactjs.org/ - framework para renderização
-Ramda: https://ramdajs.com/docs/ - framework com funções úteis
-React Router: https://reacttraining.com/react-router/ - livraria de roteamento
-React Bootstrap: https://react-bootstrap.github.io/ - livraria react para o twitter bootstrap
+- React: https://reactjs.org/ - framework para renderização
+- Ramda: https://ramdajs.com/docs/ - framework com funções úteis
+- React Router: https://reacttraining.com/react-router/ - livraria de roteamento
+- React Bootstrap: https://react-bootstrap.github.io/ - livraria react para o twitter bootstrap
