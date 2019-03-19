@@ -49,32 +49,35 @@ class App extends Component<Props> {
   /**
    * Renderiza as páginas do admin
    */
-  renderAdminPages = () => (
-    <Router>
-      <div className="container admin">
-        <Navbar bg="light" variant="light">
-          <Link className="navbar-brand" to="/">Trust Academy</Link>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <NavLink exact className="nav-link" to="/">Dashboard</NavLink>
-              <NavLink className="nav-link" to="/account">Conta</NavLink>
-            </Nav>
-            <Nav className="ml-auto">
-              <Link
-                to="/"
-                className="nav-link"
-                variant="outline-dard"
-                onClick={this.onSignOut}
-              >Sair</Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <Route exact path="/" component={InstituteDashboardPage} />
-        <Route path="/account" component={InstituteAccountPage} />
-      </div>
-    </Router>
-  );
+  renderAdminPages = () => {
+    const account = this.props.getAccountFromLocalStorage();
+    return (
+      <Router>
+        <div className="container admin">
+          <Navbar bg="light" variant="light">
+            <Link className="navbar-brand" to="/">Trust Academy</Link>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <NavLink exact className="nav-link" to="/">Dashboard</NavLink>
+                <NavLink className="nav-link" to="/account">Conta</NavLink>
+              </Nav>
+              <Nav className="ml-auto">
+                <Link
+                  to="/"
+                  className="nav-link"
+                  variant="outline-dard"
+                  onClick={this.onSignOut}
+                >Sair</Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+          <Route exact path="/" component={() => <InstituteDashboardPage account={account} />} />
+          <Route path="/account" component={() => <InstituteAccountPage account={account} />} />
+        </div>
+      </Router>
+    );
+  };
 
   /**
    * Renderiza as páginas de autenticação
