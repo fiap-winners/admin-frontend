@@ -3,7 +3,7 @@
 import * as R from 'ramda';
 import React from 'react';
 import * as utils from '../../utils';
-import { Modal, Table, Button, ListGroup } from 'react-bootstrap';
+import { Modal, Table, ListGroup } from 'react-bootstrap';
 
 type Props = {
   isOpen: boolean,
@@ -34,7 +34,6 @@ export default function DocumentViewModal({ isOpen, onClose, documentGroup }: Pr
                     <th>#</th>
                     <th>Conteúdo</th>
                     <th>Data</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,7 +42,6 @@ export default function DocumentViewModal({ isOpen, onClose, documentGroup }: Pr
                       <td>{R.inc(idx)}</td>
                       <td>{doc.content}</td>
                       <td>{utils.formattedDateAndTime(doc.createdAt)}</td>
-                      <td><Button size="sm">Copiar Link</Button></td>
                     </tr>
                   ), documentGroup)}
                 </tbody>

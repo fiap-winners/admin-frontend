@@ -51,7 +51,6 @@ export default class CreateDocumentModal extends Component<Props, State> {
   }
 
   getCoursesForSelectedDepartment = () => {
-    console.log(this.props.departments);
     if (!this.state.department) {
       return undefined;
     }
