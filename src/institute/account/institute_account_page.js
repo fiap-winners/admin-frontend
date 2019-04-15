@@ -10,7 +10,7 @@ type Props = {
 class InstituteAccountPage extends Component<Props> {
   render() {
     return (
-      <div>Conta do instituto {this.props.account.name}</div>
+      <div><strong>TBD</strong> Conta do instituto {this.props.account.name}</div>
     );
   }
 }

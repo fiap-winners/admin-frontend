@@ -2,7 +2,8 @@
 
 import * as R from 'ramda';
 import React from 'react';
-import { Modal, Table, Button } from 'react-bootstrap';
+import * as utils from '../../utils';
+import { Modal, Table, Button, ListGroup } from 'react-bootstrap';
 
 type Props = {
   isOpen: boolean,
@@ -14,26 +15,41 @@ export default function DocumentViewModal({ isOpen, onClose, documentGroup }: Pr
   return (
     <Modal size="lg" show={isOpen} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Versões do documento</Modal.Title>
+        <Modal.Title>Visualizar documento</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {!!documentGroup && (
-          <Table striped bordered>
-            <thead>
-              <tr>
-                <th>Conteúdo</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {R.map((doc: any) => (
-                <tr key={doc.id}>
-                  <td>{doc.content}</td>
-                  <td><Button size="sm">Copiar Link</Button></td>
-                </tr>
-              ), documentGroup)}
-            </tbody>
-          </Table>
+          <div>
+            <ListGroup style={{ marginBottom: 15 }}>
+              <ListGroup.Item>Aluno: <strong>{documentGroup[0].student.name}</strong></ListGroup.Item>
+              <ListGroup.Item>Tipo de documento: <strong>{documentGroup[0].type.name}</strong></ListGroup.Item>
+              <ListGroup.Item>Departamento: <strong>{documentGroup[0].department.name}</strong></ListGroup.Item>
+              <ListGroup.Item>Curso: <strong>{documentGroup[0].course.name}</strong></ListGroup.Item>
+            </ListGroup>
+            <h5>Versões</h5>
+            <div className="table-responsive">
+              <Table striped bordered>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Conteúdo</th>
+                    <th>Data</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {R.addIndex(R.map)((doc: any, idx: number) => (
+                    <tr key={doc.id}>
+                      <td>{R.inc(idx)}</td>
+                      <td>{doc.content}</td>
+                      <td>{utils.formattedDateAndTime(doc.createdAt)}</td>
+                      <td><Button size="sm">Copiar Link</Button></td>
+                    </tr>
+                  ), documentGroup)}
+                </tbody>
+              </Table>
+            </div>
+          </div>
         )}
       </Modal.Body>
     </Modal>

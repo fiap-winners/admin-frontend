@@ -1,13 +1,15 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Form, FormGroup, FormLabel, FormControl, Row, Col, Button, Modal } from 'react-bootstrap';
+import ReactSelect from 'react-select';
+import { Form, FormGroup, FormLabel, Row, Col, Button, Modal } from 'react-bootstrap';
 
 const initialState = {
-  departmentId: '',
-  courseId: '',
-  studentId: '',
-  type: '',
+  department: undefined,
+  course: undefined,
+  student: undefined,
+  type: undefined,
+  content: ''
 };
 
 export default class DocumentCreateForm extends Component {
@@ -18,9 +20,9 @@ export default class DocumentCreateForm extends Component {
   }
 
   onSubmit = (e) => {
-    const { departmentId, courseId, studentId, type } = this.state;
+    const { department, course, student, type, content } = this.state;
     e.preventDefault();
-    if (!departmentId || !courseId || !studentId || !type) {
+    if (!department || !course || !student || !type || !content) {
       alert('Todos os campos são obrigatórios');
     } else {
       this.props.createDocument(this.state);
@@ -29,41 +31,80 @@ export default class DocumentCreateForm extends Component {
     }
   }
 
-  renderField = (id: string, label: string, value: string, type: string = 'text') => (
-    <Col lg={4}>
-      <FormGroup>
-        <FormLabel htmlFor={id}>{label}</FormLabel>
-        <FormControl
-          id={id}
-          type={type}
-          value={value}
-          onChange={(e) => { this.onChange(id, e.target.value); }}
-        />
-      </FormGroup>
-    </Col>
-  );
-
-  renderDepartmentField = () => (
-    <select>
-
-    </select>
+  renderSelectField = (label, name, value, options) => (
+    <FormGroup>
+      <FormLabel>{label}</FormLabel>
+      <ReactSelect
+        value={value}
+        options={options}
+        onChange={(selected) => this.onChange(name, { id: selected.value, name: selected.label })}
+      />
+    </FormGroup>
   );
 
   render() {
-    const { courseId, studentId, type, content } = this.state;
+    const { department, course, student, type, content } = this.state;
     return (
       <Modal size="lg" show={this.props.isOpen} onHide={this.props.onClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Criar Documento</Modal.Title>
+          <Modal.Title>Novo Documento</Modal.Title>
         </Modal.Header>
         <Form onSubmit={this.onSubmit}>
           <Modal.Body>
             <Row>
-              {this.renderField('departmentId', 'Id do departamento', courseId)}
-              {this.renderField('courseId', 'Id do curso', courseId)}
-              {this.renderField('studentId', 'Id do aluno', studentId)}
-              {this.renderField('type', 'Tipo de documento', type)}
-              {this.renderField('content', 'Conteúdo', content)}
+              <Col>
+                {this.renderSelectField(
+                  'Aluno', 'student', !!student && { value: student.id, label: student.name },
+                  [
+                    { label: 'Henrique Lopes', value: 1 },
+                    { label: 'Leonardo Cristofani', value: 2 },
+                    { label: 'Mauricio Carvalho', value: 3 },
+                    { label: 'Pedro Silva', value: 4 },
+                    { label: 'Tiago Silvino', value: 5 },
+                  ]
+                )}
+              </Col>
+              <Col>
+                {this.renderSelectField(
+                  'Tipo', 'type', !!type && { value: type.id, label: type.name },
+                  [
+                    { label: 'Histórico Escolar', value: 1 },
+                    { label: 'Certificado de Conclusão', value: 2 },
+                    { label: 'Certificado de Matrícular', value: 3 },
+                  ]
+                )}
+              </Col>
+              <Col>
+                {this.renderSelectField(
+                  'Departamento', 'department', !!department && { value: department.id, label: department.name },
+                  [
+                    { label: 'FIAP ON', value: 1 },
+                    { label: 'FIAP OFF', value: 2 }
+                  ]
+                )}
+              </Col>
+              <Col>
+                {this.renderSelectField(
+                  'Curso', 'course', !!course && { value: course.id, label: course.name },
+                  [
+                    { label: 'Análise e desenv. de sistemas', value: 1 },
+                    { label: 'Engenharia da computação', value: 2 },
+                    { label: 'Marketing Digital', value: 3 }
+                  ]
+                )}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Conteúdo</FormLabel>
+                  <textarea
+                    value={content}
+                    className="form-control"
+                    onChange={(e) => this.onChange('content', e.target.value)}
+                  />
+                </FormGroup>
+              </Col>
             </Row>
           </Modal.Body>
           <Modal.Footer>

@@ -40,9 +40,12 @@ class DocumentListContainer extends Component<Props, State> {
   }
 
   createDocument = (document: any) => {
+    const now = Date.now();
     this.props.createDocument(Object.assign({}, document, {
-      id: Date.now(),
-      institute: 1
+      id: now,
+      createdAt: now,
+      modifiedAt: now,
+      institute: { id: 1, name: 'FIAP' },
     }));
   }
 
@@ -56,7 +59,7 @@ class DocumentListContainer extends Component<Props, State> {
       <div>
         <Button onClick={this.openCreateModal}>Novo Documento</Button>
         <Alert variant="info" style={{ marginTop: 15 }}>
-          <strong>Para garantir que os documentos não sofram alteração, eles são armazenados em <a href="https://en.wikipedia.org/wiki/Blockchain" _target="blank">blockchain</a>. </strong>
+          <strong>Para garantir que os documentos não sofram alteração, eles são armazenados em <a href="https://en.wikipedia.org/wiki/Blockchain" target="_blank" rel="noopener noreferrer">blockchain</a>. </strong>
           Com isso, os documentos que possuem as propriedades aluno, tipo de documento, departamento e curso iguais fazem
          parte da mesma corrente de documentos. Considere cada documento em uma única corrente como uma versão.
         </Alert>

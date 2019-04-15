@@ -40,3 +40,8 @@ export function groupDocuments(documents) {
     }, {})
   )(documents);
 }
+
+export function formattedDateAndTime(timestamp: number) {
+  const date = new Date(timestamp);
+  return `${date.toLocaleDateString()} às ${date.toLocaleTimeString()}`;
+}

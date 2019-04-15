@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Table, Button, ButtonGroup } from 'react-bootstrap';
 import * as R from 'ramda';
 import * as utils from '../../utils';
@@ -32,8 +32,8 @@ export default class DocumentList extends Component<Props, State> {
   render() {
     const { documents } = this.props;
     return (
-      <Fragment>
-        <Table striped bordered style={{ marginTop: 16 }}>
+      <div className="table-responsive">
+        <Table striped bordered>
           <thead>
             <tr>
               <th>Aluno</th>
@@ -50,19 +50,17 @@ export default class DocumentList extends Component<Props, State> {
               return (
                 <tr key={firstDoc.id}>
                   <td>{firstDoc.student.name}</td>
-                  <td>{firstDoc.type}</td>
+                  <td>{firstDoc.type.name}</td>
                   <td>{firstDoc.department.name}</td>
                   <td>{firstDoc.course.name}</td>
                   <td>{documentGroup.length}</td>
                   <td>
                     <ButtonGroup size="sm">
-                      <Button variant="outline-primary">Nova Versão</Button>
                       <Button
                         variant="outline-primary"
                         onClick={() => this.openModal(documentGroup)}
-                      >
-                        Visualizar
-                      </Button>
+                      >Visualizar</Button>
+                      <Button variant="outline-primary">Nova Versão</Button>
                     </ButtonGroup>
                   </td>
                 </tr>
@@ -75,7 +73,7 @@ export default class DocumentList extends Component<Props, State> {
           isOpen={this.state.isModalOpen}
           documentGroup={this.state.documentGroup}
         />
-      </Fragment>
+      </div>
     );
   }
 }
