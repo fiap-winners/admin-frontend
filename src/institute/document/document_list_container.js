@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Alert, Button } from 'react-bootstrap';
-import DocumentCreateForm from './document_create_form';
+import CreateDocumentModalContainer from './create_document_modal_container';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -63,7 +63,7 @@ class DocumentListContainer extends Component<Props, State> {
           Com isso, os documentos que possuem as propriedades aluno, tipo de documento, departamento e curso iguais fazem
          parte da mesma corrente de documentos. Considere cada documento em uma única corrente como uma versão.
         </Alert>
-        <DocumentCreateForm
+        <CreateDocumentModalContainer
           onClose={this.closeCreateModal}
           isOpen={this.state.isCreateModalOpen}
           createDocument={this.createDocument}

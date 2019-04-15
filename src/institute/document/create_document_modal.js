@@ -1,5 +1,6 @@
 // @flow
 
+import * as R from 'ramda';
 import React, { Component } from 'react';
 import ReactSelect from 'react-select';
 import { Form, FormGroup, FormLabel, Row, Col, Button, Modal } from 'react-bootstrap';
@@ -9,14 +10,32 @@ const initialState = {
   course: undefined,
   student: undefined,
   type: undefined,
-  content: ''
+  content: '',
 };
 
-export default class DocumentCreateForm extends Component {
+type Props = {
+  students: Array<any>,
+  departments: Array<any>,
+  documentTypes: Array<any>
+};
+
+type State = {
+  department: any,
+  course: any,
+  student: any,
+  type: any,
+  content: string
+}
+
+export default class CreateDocumentModal extends Component<Props, State> {
   state = initialState;
 
   onChange = (field: string, value: string) => {
-    this.setState({ [field]: value });
+    if (field === 'department') {
+      this.setState({ [field]: value, course: undefined });
+    } else {
+      this.setState({ [field]: value });
+    }
   }
 
   onSubmit = (e) => {
@@ -31,12 +50,21 @@ export default class DocumentCreateForm extends Component {
     }
   }
 
+  getCoursesForSelectedDepartment = () => {
+    console.log(this.props.departments);
+    if (!this.state.department) {
+      return undefined;
+    }
+    const d = R.find(R.propEq('id', this.state.department.id), this.props.departments);
+    return d ? d.courses : undefined;
+  }
+
   renderSelectField = (label, name, value, options) => (
     <FormGroup>
       <FormLabel>{label}</FormLabel>
       <ReactSelect
         value={value}
-        options={options}
+        options={!!options && R.map(o => ({ label: o.name, value: o.id }), options)}
         onChange={(selected) => this.onChange(name, { id: selected.value, name: selected.label })}
       />
     </FormGroup>
@@ -55,42 +83,27 @@ export default class DocumentCreateForm extends Component {
               <Col>
                 {this.renderSelectField(
                   'Aluno', 'student', !!student && { value: student.id, label: student.name },
-                  [
-                    { label: 'Henrique Lopes', value: 1 },
-                    { label: 'Leonardo Cristofani', value: 2 },
-                    { label: 'Mauricio Carvalho', value: 3 },
-                    { label: 'Pedro Silva', value: 4 },
-                    { label: 'Tiago Silvino', value: 5 },
-                  ]
+                  this.props.students
                 )}
               </Col>
               <Col>
                 {this.renderSelectField(
                   'Tipo', 'type', !!type && { value: type.id, label: type.name },
-                  [
-                    { label: 'Histórico Escolar', value: 1 },
-                    { label: 'Certificado de Conclusão', value: 2 },
-                    { label: 'Certificado de Matrícular', value: 3 },
-                  ]
+                  this.props.documentTypes
                 )}
               </Col>
               <Col>
                 {this.renderSelectField(
                   'Departamento', 'department', !!department && { value: department.id, label: department.name },
-                  [
-                    { label: 'FIAP ON', value: 1 },
-                    { label: 'FIAP OFF', value: 2 }
-                  ]
+                  this.props.departments
                 )}
               </Col>
               <Col>
-                {this.renderSelectField(
-                  'Curso', 'course', !!course && { value: course.id, label: course.name },
-                  [
-                    { label: 'Análise e desenv. de sistemas', value: 1 },
-                    { label: 'Engenharia da computação', value: 2 },
-                    { label: 'Marketing Digital', value: 3 }
-                  ]
+                {this.state.department && (
+                  this.renderSelectField(
+                    'Curso', 'course', !!course && { value: course.id, label: course.name },
+                    this.getCoursesForSelectedDepartment()
+                  )
                 )}
               </Col>
             </Row>
