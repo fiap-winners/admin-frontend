@@ -4,9 +4,10 @@ import React, { Component } from 'react';
 import { Form, FormGroup, FormLabel, FormControl, Row, Col, Button, Modal } from 'react-bootstrap';
 
 const initialState = {
+  departmentId: '',
   courseId: '',
   studentId: '',
-  documentType: '',
+  type: '',
 };
 
 export default class DocumentCreateForm extends Component {
@@ -17,9 +18,9 @@ export default class DocumentCreateForm extends Component {
   }
 
   onSubmit = (e) => {
-    const { courseId, studentId, documentType } = this.state;
+    const { departmentId, courseId, studentId, type } = this.state;
     e.preventDefault();
-    if (!courseId || !studentId || !documentType) {
+    if (!departmentId || !courseId || !studentId || !type) {
       alert('Todos os campos são obrigatórios');
     } else {
       this.props.createDocument(this.state);
@@ -42,8 +43,14 @@ export default class DocumentCreateForm extends Component {
     </Col>
   );
 
+  renderDepartmentField = () => (
+    <select>
+
+    </select>
+  );
+
   render() {
-    const { courseId, studentId, documentType } = this.state;
+    const { courseId, studentId, type, content } = this.state;
     return (
       <Modal size="lg" show={this.props.isOpen} onHide={this.props.onClose}>
         <Modal.Header closeButton>
@@ -52,9 +59,11 @@ export default class DocumentCreateForm extends Component {
         <Form onSubmit={this.onSubmit}>
           <Modal.Body>
             <Row>
+              {this.renderField('departmentId', 'Id do departamento', courseId)}
               {this.renderField('courseId', 'Id do curso', courseId)}
               {this.renderField('studentId', 'Id do aluno', studentId)}
-              {this.renderField('documentType', 'Tipo de documento', documentType)}
+              {this.renderField('type', 'Tipo de documento', type)}
+              {this.renderField('content', 'Conteúdo', content)}
             </Row>
           </Modal.Body>
           <Modal.Footer>

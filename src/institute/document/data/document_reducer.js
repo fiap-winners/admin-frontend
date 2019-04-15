@@ -4,6 +4,7 @@ import * as actions from './document_actions';
 const initialState = {
   data: [],
   meta: {
+    fetched: false,
     fetching: false
   }
 };
@@ -16,6 +17,7 @@ export default function DocumentReducer(state = initialState, action) {
     case actions.FETCH_DOCUMENTS_SUCCESS:
       return R.compose(
         R.assocPath(['meta', 'fetching'], false),
+        R.assocPath(['meta', 'fetched'], true),
         R.assoc('data', payload.documents)
       )(state);
     case actions.FETCH_DOCUMENTS_FAILURE:

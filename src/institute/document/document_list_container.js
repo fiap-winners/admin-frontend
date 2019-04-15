@@ -12,6 +12,7 @@ import { fetchDocuments, createDocument } from './data/document_actions';
 
 type Props = {
   documents: Array<any>,
+  fetchedDocuments: Boolean,
   fetchingDocuments: boolean,
   createDocument: (document: any) => void,
   fetchDocuments: (instituteId: number) => void
@@ -25,7 +26,9 @@ class DocumentListContainer extends Component<Props, State> {
   state = { isCreateModalOpen: false };
 
   componentDidMount() {
-    this.props.fetchDocuments(1);
+    if (!this.props.fetchedDocuments) {
+      this.props.fetchDocuments(1);
+    }
   }
 
   openCreateModal = () => {
@@ -37,15 +40,10 @@ class DocumentListContainer extends Component<Props, State> {
   }
 
   createDocument = (document: any) => {
-    this.props.createDocument({
-      id: 4,
-      institute: { id: 1, name: 'FIAP' },
-      department: { id: 1, name: 'FIAP ON' },
-      course: { id: 1, name: 'Análise e desenvolvimento de sistemas' },
-      student: { id: 2, name: 'Leonardo Cristofani' },
-      type: 'Histórico Escolar',
-      content: 'Documento 2'
-    });
+    this.props.createDocument(Object.assign({}, document, {
+      id: Date.now(),
+      institute: 1
+    }));
   }
 
   renderEmpty = () => (
@@ -57,6 +55,11 @@ class DocumentListContainer extends Component<Props, State> {
     return (
       <div>
         <Button onClick={this.openCreateModal}>Novo Documento</Button>
+        <Alert variant="info" style={{ marginTop: 15 }}>
+          <strong>Para garantir que os documentos não sofram alteração, eles são armazenados em <a href="https://en.wikipedia.org/wiki/Blockchain" _target="blank">blockchain</a>. </strong>
+          Com isso, os documentos que possuem as propriedades aluno, tipo de documento, departamento e curso iguais fazem
+         parte da mesma corrente de documentos. Considere cada documento em uma única corrente como uma versão.
+        </Alert>
         <DocumentCreateForm
           onClose={this.closeCreateModal}
           isOpen={this.state.isCreateModalOpen}
@@ -69,9 +72,11 @@ class DocumentListContainer extends Component<Props, State> {
 }
 
 function mapStateToProps(state) {
+  const { document: { data, meta } } = state;
   return {
-    documents: state.document.data,
-    fetchingDocuments: state.document.meta.fetching
+    documents: data,
+    fetchedDocuments: meta.fetched,
+    fetchingDocuments: meta.fetching
   };
 }
 
