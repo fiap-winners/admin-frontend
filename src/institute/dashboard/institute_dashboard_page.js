@@ -12,7 +12,7 @@ type Props = {
  */
 class InstituteDashboardPage extends Component<Props> {
   render() {
-    return (<DocumentListContainer />);
+    return (<DocumentListContainer account={this.props.account} />);
   }
 }
 

@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 const ACCOUNT_KEY = 'trust_academy_account';
 
 /**
@@ -20,4 +21,22 @@ export function addAccountToLocalStorage(account: Account) {
  */
 export function removeAccountFromLocalStorage() {
   window.localStorage.removeItem(ACCOUNT_KEY);
+}
+
+/**
+ * Agrupa is documentos com instituto, departamento, curso e alunos iguais
+ */
+export function groupDocuments(documents) {
+  return R.compose(
+    R.values,
+    R.reduce((acc, cur) => {
+      const key = `${cur.institute.id}${cur.department.id}${cur.course.id}${cur.student.id}`;
+      if (acc[key]) {
+        acc[key].push(cur);
+      } else {
+        acc[key] = [cur];
+      }
+      return acc;
+    }, {})
+  )(documents);
 }

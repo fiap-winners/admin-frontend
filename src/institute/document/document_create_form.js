@@ -1,14 +1,12 @@
 // @flow
 
 import React, { Component } from 'react';
-import Dropzone from 'react-dropzone';
 import { Form, FormGroup, FormLabel, FormControl, Row, Col, Button, Modal } from 'react-bootstrap';
 
 const initialState = {
   courseId: '',
   studentId: '',
   documentType: '',
-  file: undefined
 };
 
 export default class DocumentCreateForm extends Component {
@@ -19,9 +17,9 @@ export default class DocumentCreateForm extends Component {
   }
 
   onSubmit = (e) => {
-    const { courseId, studentId, documentType, file } = this.state;
+    const { courseId, studentId, documentType } = this.state;
     e.preventDefault();
-    if (!courseId || !studentId || !documentType || !file) {
+    if (!courseId || !studentId || !documentType) {
       alert('Todos os campos são obrigatórios');
     } else {
       this.props.createDocument(this.state);
@@ -44,21 +42,6 @@ export default class DocumentCreateForm extends Component {
     </Col>
   );
 
-  renderFileField = () => (
-    <Dropzone onDrop={(acceptedFiles: []) => {
-      if (acceptedFiles.length) {
-        this.onChange('file', acceptedFiles[0].path);
-      }
-    }}>
-      {({ getRootProps, getInputProps }) => (
-        <div className="dropzone" {...getRootProps()}>
-          {this.state.file ? this.state.file : 'Clique para adicionar um arquivo'}
-          <input {...getInputProps()} />
-        </div>
-      )}
-    </Dropzone>
-  );
-
   render() {
     const { courseId, studentId, documentType } = this.state;
     return (
@@ -69,7 +52,6 @@ export default class DocumentCreateForm extends Component {
         <Form onSubmit={this.onSubmit}>
           <Modal.Body>
             <Row>
-              <Col xs={12}>{this.renderFileField()}</Col>
               {this.renderField('courseId', 'Id do curso', courseId)}
               {this.renderField('studentId', 'Id do aluno', studentId)}
               {this.renderField('documentType', 'Tipo de documento', documentType)}
