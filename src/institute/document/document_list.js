@@ -6,27 +6,39 @@ import * as R from 'ramda';
 import * as utils from '../../utils';
 
 import DocumentViewModal from './document_view_modal';
+import NewDocumentVersionModal from './new_document_version_modal';
 
 type Props = {
-  documents: Array<any>
+  documents: Array<any>,
+  createDocument: (document: any) => void
 }
 
 type State = {
-  isModalOpen: boolean,
-  documentGroup: Array<any>
+  isNewVersionModalOpen: boolean,
+  newVersionDocument: any,
+  isViewModalOpen: boolean,
+  viewDocumentGroup: Array<any>
 };
 
 export default class DocumentList extends Component<Props, State> {
   state = {
-    isModalOpen: false
+    isViewModalOpen: false
   }
 
-  openModal = (documentGroup: Array<any>) => {
-    this.setState({ isModalOpen: true, documentGroup });
+  openViewModal = (viewDocumentGroup: Array<any>) => {
+    this.setState({ isViewModalOpen: true, viewDocumentGroup });
   }
 
-  closeModal = () => {
-    this.setState({ isModalOpen: false, documentGroup: undefined });
+  closeViewModal = () => {
+    this.setState({ isViewModalOpen: false, viewDocumentGroup: undefined });
+  }
+
+  openNewVersionModal = (newVersionDocument: Array<any>) => {
+    this.setState({ isNewVersionModalOpen: true, newVersionDocument });
+  }
+
+  closeNewVersionModal = () => {
+    this.setState({ isNewVersionModalOpen: false, newVersionDocument: undefined });
   }
 
   render() {
@@ -58,9 +70,12 @@ export default class DocumentList extends Component<Props, State> {
                     <ButtonGroup size="sm">
                       <Button
                         variant="outline-primary"
-                        onClick={() => this.openModal(documentGroup)}
+                        onClick={() => this.openViewModal(documentGroup)}
                       >Visualizar</Button>
-                      <Button variant="outline-primary">Nova Versão</Button>
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => this.openNewVersionModal(documentGroup[0])}
+                      >Nova Versão</Button>
                     </ButtonGroup>
                   </td>
                 </tr>
@@ -69,9 +84,15 @@ export default class DocumentList extends Component<Props, State> {
           </tbody>
         </Table>
         <DocumentViewModal
-          onClose={this.closeModal}
-          isOpen={this.state.isModalOpen}
-          documentGroup={this.state.documentGroup}
+          onClose={this.closeViewModal}
+          isOpen={this.state.isViewModalOpen}
+          documentGroup={this.state.viewDocumentGroup}
+        />
+        <NewDocumentVersionModal
+          onClose={this.closeNewVersionModal}
+          isOpen={this.state.isNewVersionModalOpen}
+          document={this.state.newVersionDocument}
+          createDocument={this.props.createDocument}
         />
       </div>
     );

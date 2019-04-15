@@ -68,7 +68,9 @@ class DocumentListContainer extends Component<Props, State> {
           isOpen={this.state.isCreateModalOpen}
           createDocument={this.createDocument}
         />
-        {!!documents.length ? <DocumentList documents={documents} /> : this.renderEmpty()}
+        {!!documents.length
+          ? <DocumentList documents={documents} createDocument={this.createDocument} />
+          : this.renderEmpty()}
       </div>
     );
   }
