@@ -16,6 +16,7 @@ export function createDocument(document: any) {
   const now = Date.now();
   return (dispatch => {
     api.createDocument({
+      id: now,
       content: document.content,
       type: `${baseApiUrl}/documentTypes/${document.type.id}`,
       student: `${baseApiUrl}/students/${document.student.id}`,
