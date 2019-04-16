@@ -45,8 +45,10 @@ export default class CreateDocumentModal extends Component<Props, State> {
       alert('Todos os campos são obrigatórios');
     } else {
       this.props.createDocument(this.state);
-      this.setState(initialState);
-      this.props.onClose();
+      setTimeout(() => {
+        this.setState(initialState);
+        this.props.onClose();
+      }, 10);
     }
   }
 
