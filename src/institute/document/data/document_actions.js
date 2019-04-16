@@ -2,8 +2,6 @@
 
 import * as api from './document_api';
 
-const baseApiUrl = process.env.REACT_APP_BASE_API_URL;
-
 export const CREATE_DOCUMENT_REQUEST = 'CREATE_DOCUMENT_REQUEST';
 export const CREATE_DOCUMENT_SUCCESS = 'CREATE_DOCUMENT_SUCCESS';
 export const CREATE_DOCUMENT_FAILURE = 'CREATE_DOCUMENT_FAILURE';
@@ -18,13 +16,13 @@ export function createDocument(document: any) {
     api.createDocument({
       id: now,
       content: document.content,
-      type: `${baseApiUrl}/documentTypes/${document.type.id}`,
-      student: `${baseApiUrl}/students/${document.student.id}`,
-      institute: `${baseApiUrl}/institutes/${document.institute.id}`,
-      department: `${baseApiUrl}/departments/${document.department.id}`,
-      course: `${baseApiUrl}/courses/${document.course.id}`,
+      type: `http://localhost:8080/api/documentTypes/${document.type.id}`,
+      student: `http://localhost:8080/api/students/${document.student.id}`,
+      institute: `http://localhost:8080/api/institutes/${document.institute.id}`,
+      department: `http://localhost:8080/api/departments/${document.department.id}`,
+      course: `http://localhost:8080/api/courses/${document.course.id}`,
       createdAt: now,
-      modifedAt: now
+      modifiedAt: now
     }).then(({ data }) => {
       dispatch({
         type: CREATE_DOCUMENT_REQUEST, payload: {

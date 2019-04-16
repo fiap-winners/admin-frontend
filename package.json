@@ -19,7 +19,6 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start:dev": "REACT_APP_BASE_API_URL=http://localhost:8080/api npm start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -2,8 +2,15 @@
 
 ### Como rodar o projeto localmente
 
-1. Instalar o NodeJS https://nodejs.org/en/download/
-2. Abrir aplicativo de linha de comando
+#### Instalar dependências
+
+1. Instalar Maven, Java SKD 8 e NodeJS
+
+#### Executar o backend
+
+1. Abrir aplicativo de linha de comando do diretório backend
+2. Executar comando `mvn spring-boot:run`
+3. Abrir aplicativo de linha de comando
 3. Verificar se o NodeJS está instalado com o comando `node -v`. Deve aparecer algo do tipo "v8.11.2"
 4. Instalar as dependências com o comando `npm install`
 5. Iniciar o servidor local com o comando `npm start`
