@@ -24,14 +24,19 @@ export default class DocumentViewModal extends Component<Props, State> {
   }
 
   onSubmit = (e) => {
-    console.log(this.props.document);
+    const { institute, department, course, student, type } = this.props.document;
     e.preventDefault();
     if (!this.state.content) {
       alert('O conteúdo é obrigatório');
     } else {
-      this.props.createDocument(Object.assign({}, this.props.document, {
+      this.props.createDocument({
+        institute: institute.id,
+        department: department.id,
+        course: course.id,
+        student: student.id,
+        type: type.id,
         content: this.state.content
-      }));
+      });
       this.setState({ content: '' }, this.props.onClose);
     }
   }
