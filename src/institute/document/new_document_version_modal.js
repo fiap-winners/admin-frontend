@@ -24,15 +24,12 @@ export default class DocumentViewModal extends Component<Props, State> {
   }
 
   onSubmit = (e) => {
-    const now = Date.now();
+    console.log(this.props.document);
     e.preventDefault();
     if (!this.state.content) {
       alert('O conteúdo é obrigatório');
     } else {
       this.props.createDocument(Object.assign({}, this.props.document, {
-        id: now,
-        createdAt: now,
-        modifiedAt: now,
         content: this.state.content
       }));
       this.setState({ content: '' }, this.props.onClose);

@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import * as actions from './institute_actions';
 
 const initialState = {
-  data: [],
+  data: {},
   meta: {
     fetched: false,
     fetching: false

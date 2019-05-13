@@ -8,13 +8,12 @@ import { connect } from 'react-redux';
 
 import DocumentList from './document_list';
 
-import { fetchDocuments, createDocument } from './data/document_actions';
+import { createDocument, fetchDocuments } from './data/document_actions';
 
 type Props = {
   documents: Array<any>,
   fetchedDocuments: Boolean,
   fetchingDocuments: boolean,
-  createDocument: (document: any) => void,
   fetchDocuments: (instituteId: number) => void
 };
 
@@ -27,7 +26,7 @@ class DocumentListContainer extends Component<Props, State> {
 
   componentDidMount() {
     if (!this.props.fetchedDocuments) {
-      this.props.fetchDocuments(1);
+      this.props.fetchDocuments(1001);
     }
   }
 
@@ -37,16 +36,6 @@ class DocumentListContainer extends Component<Props, State> {
 
   closeCreateModal = () => {
     this.setState({ isCreateModalOpen: false });
-  }
-
-  createDocument = (document: any) => {
-    const now = Date.now();
-    this.props.createDocument(Object.assign({}, document, {
-      id: now,
-      createdAt: now,
-      modifiedAt: now,
-      institute: { id: 1, name: 'FIAP' },
-    }));
   }
 
   renderEmpty = () => (
@@ -66,10 +55,9 @@ class DocumentListContainer extends Component<Props, State> {
         <CreateDocumentModalContainer
           onClose={this.closeCreateModal}
           isOpen={this.state.isCreateModalOpen}
-          createDocument={this.createDocument}
         />
         {!!documents.length
-          ? <DocumentList documents={documents} createDocument={this.createDocument} />
+          ? <DocumentList documents={documents} createDocument={this.props.createDocument} />
           : this.renderEmpty()}
       </div>
     );

@@ -14,6 +14,7 @@ const initialState = {
 };
 
 type Props = {
+  instituteId: number,
   students: Array<any>,
   departments: Array<any>,
   documentTypes: Array<any>
@@ -44,7 +45,14 @@ export default class CreateDocumentModal extends Component<Props, State> {
     if (!department || !course || !student || !type || !content) {
       alert('Todos os campos são obrigatórios');
     } else {
-      this.props.createDocument(this.state);
+      this.props.createDocument({
+        institute: this.props.instituteId,
+        department: department.id,
+        course: course.id,
+        student: student.id,
+        type: type.id,
+        content
+      });
       setTimeout(() => {
         this.setState(initialState);
         this.props.onClose();

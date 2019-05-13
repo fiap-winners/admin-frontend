@@ -1,24 +1,19 @@
-# Trust Academy - Admin Frontend
+# Trust Academy - Admin
 
-### Como rodar o projeto localmente
+Painel de controle através do qual as instituições de ensino podem gerar e compartilhar documentos acadêmicos com outras instituições em segurança via blockchain.
 
-#### Instalar dependências
+### Projetos relacionados
 
-1. Instalar Maven, Java SKD 8 e NodeJS
+- Trust Academy - landing page
+    - [Repositório](https://github.com/fiap-winners/landing-page)
+    - [Site](https://trustacademy.link/)
+    
+- Trust Academy - api
+    - [Repositório](https://github.com/fiap-winners/trustacademy-api)
+    - [Docs](https://api.trustacademy.link/swagger-ui.html#/)
 
-#### Executar o backend
+### Executar o frontend
 
-1. Abrir aplicativo de linha de comando do diretório backend
-2. Executar comando `mvn spring-boot:run`
-3. Abrir aplicativo de linha de comando
-3. Verificar se o NodeJS está instalado com o comando `node -v`. Deve aparecer algo do tipo "v8.11.2"
-4. Instalar as dependências com o comando `npm install`
-5. Iniciar o servidor local com o comando `npm start`
-6. Abrir o navegador no endereço http://localhost:3000/
-
-### Documentação das principais dependências
-
-- React: https://reactjs.org/ - framework para renderização
-- Ramda: https://ramdajs.com/docs/ - framework com funções úteis
-- React Router: https://reacttraining.com/react-router/ - livraria de roteamento
-- React Bootstrap: https://react-bootstrap.github.io/ - livraria react para o twitter bootstrap
+1. Abrir um aplicativo de linha de comando na diretório do projeto
+2. Executar os comandos `npm install` e `npm start`
+3. Abrir navegador em [http://localhost:3000/](http://localhost:3000/)

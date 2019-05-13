@@ -30,7 +30,7 @@ export function groupDocuments(documents) {
   return R.compose(
     R.values,
     R.reduce((acc, cur) => {
-      const key = `${cur.institute.id}${cur.department.id}${cur.course.id}${cur.student.id}`;
+      const key = `${cur.institute}${cur.department}${cur.course}${cur.student}`;
       if (acc[key]) {
         acc[key].push(cur);
       } else {

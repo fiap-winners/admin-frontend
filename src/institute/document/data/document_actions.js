@@ -11,22 +11,11 @@ export const FETCH_DOCUMENTS_SUCCESS = 'FETCH_DOCUMENTS_SUCCESS';
 export const FETCH_DOCUMENTS_FAILURE = 'FETCH_DOCUMENTS_FAILURE';
 
 export function createDocument(document: any) {
-  const now = Date.now();
   return (dispatch => {
-    api.createDocument({
-      id: now,
-      content: document.content,
-      type: `http://localhost:8080/api/documentTypes/${document.type.id}`,
-      student: `http://localhost:8080/api/students/${document.student.id}`,
-      institute: `http://localhost:8080/api/institutes/${document.institute.id}`,
-      department: `http://localhost:8080/api/departments/${document.department.id}`,
-      course: `http://localhost:8080/api/courses/${document.course.id}`,
-      createdAt: now,
-      modifiedAt: now
-    }).then(({ data }) => {
+    api.createDocument(document).then(({ data }) => {
       dispatch({
         type: CREATE_DOCUMENT_REQUEST, payload: {
-          document: Object.assign({}, data, data._embedded)
+          document: data
         }
       });
     });
