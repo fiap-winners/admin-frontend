@@ -1,5 +1,5 @@
-import * as R from 'ramda';
-const ACCOUNT_KEY = 'trust_academy_account';
+import * as R from "ramda";
+const ACCOUNT_KEY = "trust_academy_account";
 
 /**
  * Recuperar o objeto "account" to localStorage do navegador.
@@ -30,7 +30,8 @@ export function groupDocuments(documents) {
   return R.compose(
     R.values,
     R.reduce((acc, cur) => {
-      const key = `${cur.institute.id}${cur.department.id}${cur.course.id}${cur.student.id}`;
+      console.log(cur);
+      const key = `${cur.institute.id}${cur.type.id}${cur.department.id}${cur.course.id}${cur.student.id}`;
       if (acc[key]) {
         acc[key].push(cur);
       } else {
